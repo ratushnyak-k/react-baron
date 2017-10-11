@@ -15,7 +15,11 @@ function on(eventNames, handler) {
     eventNames = eventNames.split(' ');
 
     eventNames.forEach(function(eventName) {
-        this[0].addEventListener(eventName, handler);
+      if (Object.keys(this[0]).length) {
+            this[0].addEventListener(eventName, handler);
+        } else {
+            window.addEventListener(eventName, handler)
+        }
     }, this);
 }
 
@@ -23,7 +27,11 @@ function off(eventNames, handler) {
     eventNames = eventNames.split(' ');
 
     eventNames.forEach(function(eventName) {
-        this[0].removeEventListener(eventName, handler);
+        if (Object.keys(this[0]).length) {
+            this[0].removeEventListener(eventName, handler);
+        } else {
+            window.removeEventListener(eventName, handler)
+        }
     }, this);
 }
 
